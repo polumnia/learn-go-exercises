@@ -2,6 +2,15 @@ package structs
 
 import "math"
 
+// An interface type defines a type set.
+// A variable of interface type can store a value of any type that is in the type set of the interface.
+// Such a type is said to implement the interface.
+// In Go interface resolution is implicit. If the type you pass in matches what the interface is asking for, it will compile.
+
+type Shape interface {
+	Area() float64
+}
+
 // A struct is a sequence of named elements, called fields, each of which has a name and a type.
 // Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField).
 type Rectangle struct {
