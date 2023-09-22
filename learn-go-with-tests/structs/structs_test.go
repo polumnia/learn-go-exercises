@@ -13,25 +13,28 @@ func TestPerimeter(t *testing.T) {
 	}
 }
 
+// example of table driven tests
 func TestArea(t *testing.T) {
 
-	checkArea := func(t testing.TB, shape Shape, want float64) {
-		t.Helper()
-		got := shape.Area()
-
-		if got != want {
-			// g will print a more precise decimal number in the error message
-			t.Errorf("got %g want %g", got, want)
-		}
-
+	areaTests := []struct {
+		name string
+		shape Shape
+		hasArea float64
+	}{
+		// The test speaks to us more clearly, as if it were an assertion of truth, not a sequence of operations
+		{name: "Rectangle", shape: Rectangle{5.0, 10.0}, hasArea: 50.0},
+		{name: "Circle", shape: Circle{10}, hasArea: 314.1592653589793},
+		{name: "Triangle", shape: Triangle{12, 6}, hasArea: 36.0},
 	}
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{5.0, 10.0}
-		checkArea(t, rectangle, 50.0)
-	})
 
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10.0}
-		checkArea(t, circle, 314.1592653589793)
-	})
+	for _, tt := range areaTests {
+		// using tt.name from the case to use it as the `t.Run` test name
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			if got != tt.hasArea {
+				t.Errorf("got %g want %g", got, tt.hasArea)
+			}
+		})
+		
+	}
 }
